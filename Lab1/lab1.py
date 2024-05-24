@@ -12,7 +12,7 @@ def start_video_recording(vid):
     """Starts video recording and returns the video writer object."""
     video_filename = f"video_{datetime.now().strftime('%Y%m%d_%H%M%S')}.avi"
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(video_filename, fourcc, 20.0, (int(vid.get(3)), int(vid.get(4))))
+    out = cv2.VideoWriter(video_filename, fourcc, 20.0, (int(640), int(480)))
     print("Started recording")
     return out
 
@@ -81,12 +81,11 @@ def main():
         blended = cv2.addWeighted(frame[0:80, 0:70], 0.6, img, 0.4, 0)
         frame[0:80, 0:70] = blended
 
-        # Write the frame if recording
-        if recording and out:
-            out.write(frame)
-
         # Check for keypress
         key = cv2.waitKey(1)
+        if key != -1:
+            # Print the character of the key pressed
+            print("PRESSED KEY:", chr(key))
 
         # Rotate frame on 'r' key press
         if key == ord('r'):
@@ -134,24 +133,28 @@ def main():
 
         # Show the frame
         cv2.imshow("Photo Booth", frame)
+        
+        # Write the frame if recording
+        if recording and out:
+            out.write(frame)
 
         # Exit on 'Esc' key press
         if key == 27:
             break
         # Capture photo on 'c' key press
-        elif key == ord('c'):
+        if key == ord('c'):
             capture_photo(frame)
             for i in range(50):
                 key = cv2.waitKey(1)
                 frame = 255 * np.ones_like(frame, dtype=np.uint8)
                 cv2.imshow("Photo Booth", frame)
         # Start/stop video recording on 'v' key press
-        elif key == ord('v'):
+        if key == ord('v'):
             if recording:
                 stop_video_recording(out)
                 recording = False
             else:
-                out = start_video_recording(vid)
+                out = start_video_recording(frame)
                 recording = True
 
     # Release resources
