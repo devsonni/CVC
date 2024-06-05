@@ -96,12 +96,14 @@ def main():
 
         if not canny:
             if sobelx and not sobely:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 x = cv2.getTrackbarPos('sobel_x', 'Sobel X')
                 frame = cv2.Sobel(frame, cv2.CV_64F, 1, 0, ksize=int(2*x+1))
                 sobely = False
         
         if not canny:
             if sobely and not sobelx:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 y = cv2.getTrackbarPos('sobel_y', 'Sobel Y')
                 frame = cv2.Sobel(frame, cv2.CV_64F, 0, 1, ksize=int(2*y+1))
                 sobelx = False
@@ -118,13 +120,13 @@ def main():
             lap = custom_laplacian(frame.copy())
             sobx, soby = custom_sobel_fun(frame.copy())
             cv2.imshow("Laplacian", lap)
-            cv2.imshow("Sobel X", sobx)
-            cv2.imshow("Sobel Y", soby)
+            cv2.imshow("Sob X", sobx)
+            cv2.imshow("Sob Y", soby)
             # Move windows to specified locations
             cv2.moveWindow('Original', 0, 0)  # Top-left corner
             cv2.moveWindow('Laplacian', 0, frame.shape[0]+100)  # Below the original frame
-            cv2.moveWindow('Sobel X', frame.shape[1]+50, 0)  # Next to the first camera
-            cv2.moveWindow('Sobel Y', frame.shape[1]+50, frame.shape[0]+100)  # Below the original frame of the second camera
+            cv2.moveWindow('Sob X', frame.shape[1]+50, 0)  # Next to the first camera
+            cv2.moveWindow('Sob Y', frame.shape[1]+50, frame.shape[0]+100)  # Below the original frame of the second camera
 
 
         # Check for keypress
@@ -136,15 +138,15 @@ def main():
         if key == ord('s'):
 
             next_key = cv2.waitKey(0)  # Wait for the next key press            
-            print("Next key:", next_key)  # Debugging output
-
             if next_key == ord('x'):
+                print("s+x pressed")
                 cv2.namedWindow('Sobel X')
                 cv2.createTrackbar('sobel_x', 'Sobel X', 0, 15, nothing)
                 sobely = False
                 sobelx = True
 
             elif next_key == ord('y'):
+                print("s+y pressed")
                 cv2.namedWindow('Sobel Y')
                 cv2.createTrackbar('sobel_y', 'Sobel Y', 0, 15, nothing)
                 sobelx = False
@@ -156,6 +158,9 @@ def main():
             cv2.createTrackbar('Threshold 1', 'Threshold', 1, 5000, nothing)
             cv2.createTrackbar('Threshold 2', 'Threshold', 1, 5000, nothing)
 
+        if key == ord('e'):
+            canny, sobelx, sobely  = False, False, False 
+            
         if key == ord('4'):
             four_pressed = True
 
