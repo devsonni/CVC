@@ -102,7 +102,7 @@ rx = x / np.float_power(2, OCTAVES - 1 - extrema_octaves)
 # Plotting the extremas found
 plt.figure()
 plt.imshow(image_gray, cmap='gray')
-plt.scatter(ry, rx, marker='+', color='green')
+plt.scatter(ry, rx, marker='+', color='blue')
 plt.title('Initial Keypoints')  # Save the figure
 plt.show()
 
@@ -153,7 +153,7 @@ rx = x / np.float_power(2, OCTAVES - 1 - extrema_octaves)
 
 plt.figure()
 plt.imshow(image_gray, cmap='gray')
-plt.scatter(ry, rx, marker='+', color='red')
+plt.scatter(ry, rx, marker='+', color='green')
 plt.title('Filtered Keypoints')
 plt.show()
 
@@ -198,6 +198,6 @@ rx = x / np.float_power(2, OCTAVES - 1 - extrema_octaves)
 
 plt.figure()
 plt.imshow(image_gray, cmap='gray')
-plt.scatter(ry, rx, marker='+', color='blue')
+plt.scatter(ry, rx, marker='+', color='red')
 plt.title('Final Keypoints')
 plt.show()
