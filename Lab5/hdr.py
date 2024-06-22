@@ -4,7 +4,6 @@ import numpy as np
 # Loading exposure images into a list
 img_fn = ["IMAGE_1.JPG", "IMAGE_2.JPG", "IMAGE_3.JPG"]
 img_list = [cv.imread(fn) for fn in img_fn]
-exposure_times = np.array([15.0, 2.5, 0.25, 0.0333], dtype=np.float32)
 
 # Exposure fusion using Mertens
 merge_mertens = cv.createMergeMertens()
