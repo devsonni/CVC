@@ -47,9 +47,9 @@ def main(sift):
                            flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
         img3 = cv.drawMatches(track_img, kp1, frame, kp2, good, None, **draw_params)
 
-        # key reading
+        # Key reading
         key = cv.waitKey(1)
-        
+
         # Show the frame
         cv.imshow("Photo Booth", img3)
 
