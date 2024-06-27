@@ -97,8 +97,6 @@ class VanishingPointDetector:
         plt.savefig('vanishing_point.png')
         plt.show()
         
-
-# Usage
 detector = VanishingPointDetector('scene3.jpg')
 detector.visualize_lines(detector.filtered_lines, detector.processed_image)
 detector.display_images()
