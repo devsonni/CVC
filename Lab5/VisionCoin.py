@@ -55,22 +55,26 @@ class CoinRecognizer:
             best_match = max(match_counts, key=match_counts.get)
             if best_match == "penny":
                 total_value += 0.01
+                print("penny")
             elif best_match == "quarter":
                 total_value += 0.25
+                print("quarter")
             elif best_match == "dime" and match_counts["dime"] >= 10:
                 total_value += 0.1
+                print("dime")
             elif best_match == "nickel":
+                print("nickel")
                 total_value += 0.05
 
         return round(total_value, 2)
 
 def main():
     recognizer = CoinRecognizer()
-    web_cam = cv2.VideoCapture(0)
+    web_cam = cv2.VideoCapture(4)
 
     while True:
         ret, frame = web_cam.read()
-
+        frame = cv2.resize(frame, (1600, 1080))
         if not ret:
             break
 
