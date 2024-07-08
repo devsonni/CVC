@@ -302,10 +302,14 @@ class CameraCalibration:
 
         K_new, kc = self.optimize(initial_params, self.world_points_set, self.img_points_set, RT)
         print("The new intrinsic matrix K is:\n", K_new)
+        np.save('intrinsic_mat.npy', K_new)
+
         print("Distortion coefficients are:\n", kc)
+        np.save('distortion_coefficient.npy', kc)
 
         RT_new = self.compute_Rt(K_new, self.H_matrix_set)
         print("The new extrinsic matrix [R|t] is:\n", RT_new[0])
+        np.save('extrinsic_mat.npy', RT_new[0])
 
         new_img_points = []
         for i, rt in enumerate(RT_new):
@@ -333,10 +337,10 @@ class CameraCalibration:
                 plt.savefig(f'result{i}.png')
 
 if __name__ == "__main__":
-    nx = 9  # Number of inside corners in x -- 9, 11 
-    ny = 6   # Number of inside corners in y -- 6, 7
-    square_size = 25  # 25, 30
-    img_dir = "sample_data" # sample_data, calibration_data
+    nx = 11  # Number of inside corners in x -- 9, 11, 9 
+    ny = 7   # Number of inside corners in y -- 6, 7, 6
+    square_size = 30  # 25, 30, 21.5
+    img_dir = "calibration_data" # sample_data, calibration_data, personal_data
 
     calibrator = CameraCalibration(nx, ny, square_size, img_dir)
     calibrator.calibrate()
