@@ -328,8 +328,7 @@ def find_correspondence_points(img1, img2):
     return pts1.T, pts2.T
 
 
-def dino():
-    # Dino
+def stereo():
     # img1 = cv2.imread('sfm_imgs/3.jpeg')
     # img2 = cv2.imread('sfm_imgs/4.jpeg')
     img1 = cv2.imread('sfm_imgs/5.jpg')
@@ -348,7 +347,7 @@ def dino():
     fig.show()
 
     height, width, ch = img1.shape
-    intrinsic = np.array([  # for dino
+    intrinsic = np.array([
         [4000, -8.5, width / 2],
         [0, 4000, height / 2],
         [0, 0, 1]])
@@ -360,7 +359,7 @@ def dino():
 
 
 
-points1, points2, intrinsic = dino()
+points1, points2, intrinsic = stereo()
 
 # Calculate essential matrix with 2d points.
 # Result will be up to a scale
