@@ -1,107 +1,3 @@
-# import tensorflow as tf
-# from tensorflow.keras.preprocessing.image import ImageDataGenerator
-# from tensorflow.keras.applications import VGG19
-# from tensorflow.keras.layers import Dense, Flatten
-# from tensorflow.keras.models import Model
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# # Load the MerchData dataset
-# data_dir = 'MerchData'
-
-# # Data augmentation and normalization
-# datagen = ImageDataGenerator(
-#     rescale=1./255,
-#     validation_split=0.2,  # 20% for validation
-#     rotation_range=40,
-#     width_shift_range=0.2,
-#     height_shift_range=0.2,
-#     shear_range=0.2,
-#     zoom_range=0.2,
-#     horizontal_flip=True,
-#     fill_mode='nearest'
-# )
-
-# train_generator = datagen.flow_from_directory(
-#     data_dir,
-#     target_size=(224, 224),
-#     batch_size=20,
-#     class_mode='categorical',
-#     subset='training'  # Set as training data
-# )
-
-# validation_generator = datagen.flow_from_directory(
-#     data_dir,
-#     target_size=(224, 224),
-#     batch_size=20,
-#     class_mode='categorical',
-#     subset='validation'  # Set as validation data
-# )
-
-# # Load the pretrained VGG19 model and freeze initial layers
-# base_model = VGG19(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-# for layer in base_model.layers:
-#     layer.trainable = False
-
-# # Add custom layers on top of the base model
-# x = Flatten()(base_model.output)
-# x = Dense(512, activation='relu')(x)
-# x = Dense(train_generator.num_classes, activation='softmax')(x)
-
-# model = Model(inputs=base_model.input, outputs=x)
-
-# # Compile the model
-# model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-# # Train the model
-# history = model.fit(
-#     train_generator,
-#     steps_per_epoch=train_generator.samples // train_generator.batch_size,
-#     validation_data=validation_generator,
-#     validation_steps=validation_generator.samples // validation_generator.batch_size,
-#     epochs=10
-# )
-
-# # Print the keys in the history dictionary for debugging
-# print("Keys in history.history:", history.history.keys())
-
-# # Plot training loss and validation accuracies
-# acc = history.history.get('accuracy', [])
-# val_acc = history.history.get('val_accuracy', [])
-# loss = history.history.get('loss', [])
-# val_loss = history.history.get('val_loss', [])
-# epochs = range(len(acc))
-
-# plt.figure(figsize=(12, 6))
-# plt.subplot(1, 2, 1)
-# plt.plot(epochs, acc, 'r', label='Training accuracy')
-# if val_acc:
-#     plt.plot(epochs, val_acc, 'b', label='Validation accuracy')
-# plt.title('Training and validation accuracy')
-# plt.legend()
-# plt.subplot(1, 2, 2)
-# plt.plot(epochs, loss, 'r', label='Training loss')
-# if val_loss:
-#     plt.plot(epochs, val_loss, 'b', label='Validation loss')
-# plt.title('Training and validation loss')
-# plt.legend()
-# plt.show()
-
-# # Test the model with random images
-# test_image_paths = ['Test/Cap.jpeg', 'Test/RubicCube.png']
-
-# for image_path in test_image_paths:
-#     img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
-#     img_array = tf.keras.preprocessing.image.img_to_array(img)
-#     img_array = np.expand_dims(img_array, axis=0) / 255.0
-#     prediction = model.predict(img_array)
-#     predicted_class = np.argmax(prediction[0])
-#     class_labels = list(train_generator.class_indices.keys())
-#     print(f"Predicted class for {image_path}: {class_labels[predicted_class]}")
-
-
-
-
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.applications import VGG19, InceptionV3
@@ -228,7 +124,7 @@ plt.tight_layout()
 plt.show()
 
 # Test the models with random images
-test_image_paths = ['Test/Cap.jpeg', 'Test/RubicCube.png']
+test_image_paths = ['Test/Cap.jpeg', 'Test/RubicCube.png', 'Test/Torch.jpeg', 'Test/ScrewDriver.jpeg']
 
 for image_path in test_image_paths:
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
